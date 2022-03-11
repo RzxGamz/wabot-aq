@@ -2,59 +2,54 @@ let fs = require('fs')
 let path = require('path')
 let levelling = require('../lib/levelling')
 let tags = {
-  'main': 'Main',
-  'game': 'Game',
-  'xp': 'Exp & Limit',
-  'sticker': 'Sticker',
-  'kerang': 'Kerang Ajaib',
-  'quotes': 'Quotes',
-  'admin': 'Admin',
-  'group': 'Group',
-  'premium': 'Premium',
-  'internet': 'Internet',
-  'anonymous': 'Anonymous Chat',
-  'nulis': 'MagerNulis & Logo',
-  'downloader': 'Downloader',
-  'tools': 'Tools',
-  'fun': 'Fun',
-  'database': 'Database',
-  'vote': 'Voting',
-  'absen': 'Absen',
-  'quran': 'Al Qur\'an',
-  'jadibot': 'Jadi Bot',
-  'owner': 'Owner',
-  'host': 'Host',
-  'advanced': 'Advanced',
-  'info': 'Info',
-  '': 'No Category',
+  'main': 'MAIN',
+  'game': 'GAME',
+  'xp': 'EXP & LIMIT',
+  'sticker': 'STICKER',
+  'kerang': 'KERANG AJAIB',
+  'quotes': 'QUOTES',
+  'admin': 'ADMIN',
+  'group': 'GROUP',
+  'premium': 'PREMIUM',
+  'internet': 'INTERNET',
+  'anonymous': 'ANONYMOUS CHAT',
+  'nulis': 'MAGERNULIS & LOGO',
+  'downloader': 'DOWNLOADER',
+  'tools': 'TOOLS',
+  'fun': 'FUN',
+  'database': 'DATABASE',
+  'vote': 'VOTING',
+  'absen': 'ABSEN',
+  'quran': 'AL QUR\'AN',
+  'jadibot': 'JADI BOT',
+  'owner': 'OWNER',
+  'host': 'HOST',
+  'advanced': 'ADVANCED',
+  'info': 'INFO',
+  '': 'NO CATEGORY',
 }
 const defaultMenu = {
-  before: `
-╭─「 %me 」
-│ Hai, %name!
-│
-│ Tersisa *%limit Limit*
-│ Role *%role*
-│ Level *%level (%exp / %maxexp)* [%xp4levelup lagi untuk levelup]
-│ %totalexp XP in Total
-│ 
-│ Tanggal: *%week %weton, %date*
-│ Tanggal Islam: *%dateIslamic*
-│ Waktu: *%time*
-│
-│ Uptime: *%uptime (%muptime)*
-│ Database: %rtotalreg of %totalreg
-│ Github:
-│ %github
-╰────
+  before: `*Hai, %name*
+
+✘⃟🔥 • Limit *%limit*
+✘⃟🔥 • Role *%role*
+✘⃟🔥 • Level *%level (%exp / %maxexp)* [%xp4levelup lagi untuk levelup]
+✘⃟🔥 • XP *%totalexp*
+ 
+✘⃟🔥 • Tanggal: *%week %weton, %date*
+✘⃟🔥 • Tanggal Islam: *%dateIslamic*
+✘⃟🔥 • Waktu: *%time*
+
+✘⃟🔥 • Uptime %uptime (%muptime)
+✘⃟🔥 • Database %rtotalreg of %totalreg
+✘⃟🔥 • Script %github
 %readmore`.trimStart(),
-  header: '╭─「 %category 」',
-  body: '│ • %cmd %islimit %isPremium',
-  footer: '╰────\n',
+  header: '*%category*',
+  body: '✘⃟🔥 • %cmd %islimit %isPremium',
+  footer: '\n',
   after: `
-*%npmname@^%version*
-${'```%npmdesc```'}
-`,
+*WhatsApp Bot*
+_Created By Nurutomo_`,
 }
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
@@ -125,8 +120,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
           ...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
             return menu.help.map(help => {
               return body.replace(/%cmd/g, menu.prefix ? help : '%p' + help)
-                .replace(/%islimit/g, menu.limit ? '(Limit)' : '')
-                .replace(/%isPremium/g, menu.premium ? '(Premium)' : '')
+                .replace(/%islimit/g, menu.limit ? '<ʟɪᴍɪᴛ>' : '')
+                .replace(/%isPremium/g, menu.premium ? '<ᴘʀᴇᴍɪᴜᴍ>' : '')
                 .trim()
             }).join('\n')
           }),
@@ -152,7 +147,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    conn.reply(m.chat, text.trim(), m)
+    conn.sendMessage(m.chat, { documentMessage: { mimetype: "application/octet-stream", fileName: "WhatsApp Bot", jpegThumbnail: fs.readFileSync('../lib/logo.jpg') }, contentText: text.trim(), footerText: "Created By Nurutomo", buttons: [{buttonId: "#owner", buttonText: { displayText: "OWNER" }, type: 1}], headerType: "DOCUMENT" }, "buttonsMessage", { quoted: m })
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
