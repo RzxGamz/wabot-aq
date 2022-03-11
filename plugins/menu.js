@@ -147,8 +147,25 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    conn.sendMessage(m.chat, { documentMessage: { mimetype: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileLength: 500000000000, pageCount: 1000, fileName: "WhatsApp Bot", jpegThumbnail: fs.readFileSync('./lib/logo.png') }, contentText: text.trim(), footerText: "Created By Nurutomo", buttons: [{buttonId: "#owner", buttonText: { displayText: "OWNER" }, type: 1}], headerType: "DOCUMENT" }, "buttonsMessage", { quoted: m })
-  } catch (e) {
+    conn.sendMessage(m.chat, {
+               contentText: text.trim(),
+               footerText: "Whatsapp Bot",
+               buttons: [{buttonId:"#owner",buttonText:{displayText:"OWNER"},type:1}],
+               "headerType": "DOCUMENT", 
+               "documentMessage": { 
+               "url": "https://mmg.whatsapp.net/d/f/Ano5cGYOFQnC51uJaqGBWiCrSJH1aDCi8-YPQMMb1N1y.enc", 
+               "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+               "title": "@Rzxbot", 
+               "fileSha256": "8Xfe3NQDhjwVjR54tkkShLDGrIFKR9QT5EsthPyxDCI=", 
+               "fileLength": 50000000000, 
+               "pageCount": 1000, 
+               "mediaKey": "XWv4hcnpGY51qEVSO9+e+q6LYqPR3DbtT4iqS9yKhkI=", 
+               "fileName": "ʀᴢx ʙᴏᴛ ᴡʜᴀᴛsᴀᴘᴘ", 
+               "fileEncSha256": "NI9ykWUcXKquea4BmH7GgzhMb3pAeqqwE+MTFbH/Wk8=", 
+               "directPath": "/v/t62.7119-24/35160407_568282564396101_3119299043264875885_n.enc?ccb=11-4&oh=d43befa9a76b69d757877c3d430a0752&oe=61915CEC", 
+               "mediaKeyTimestamp": "1634472176",
+               "jpegThumbnail": fs.readFileSync('./lib/logo.png') }}, "buttonsMessage", { quoted: m, thumbnail: fs.readFileSync('./lib/logo.png'), contextInfo: { externalAdReply: { title: "Whatsapp Bot", body: "By Nurutomo", mediaType: "2", jpegThumbnail: fs.readFileSync('./lib/logo.png'), mediaUrl: `https://instagram.com` }} })
+    } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
   }
