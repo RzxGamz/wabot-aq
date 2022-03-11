@@ -147,7 +147,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    conn.sendMessage(m.chat, { documentMessage: { mimetype: "application/octet-stream", fileName: "WhatsApp Bot", jpegThumbnail: fs.readFileSync('../lib/logo.png') }, contentText: text.trim(), footerText: "Created By Nurutomo", buttons: [{buttonId: "#owner", buttonText: { displayText: "OWNER" }, type: 1}], headerType: "DOCUMENT" }, "buttonsMessage", { quoted: m })
+    conn.sendMessage(m.chat, { documentMessage: { mimetype: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileLength: 500000000000, pageCount: 1000, fileName: "WhatsApp Bot", jpegThumbnail: fs.readFileSync('./lib/logo.png') }, contentText: text.trim(), footerText: "Created By Nurutomo", buttons: [{buttonId: "#owner", buttonText: { displayText: "OWNER" }, type: 1}], headerType: "DOCUMENT" }, "buttonsMessage", { quoted: m })
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
